@@ -6,13 +6,13 @@ from telebot.types import (
     KeyboardButton,
     WebAppInfo
 )
-from confing import TOKEN1  # Убедитесь, что TOKEN1 содержит ваш токен бота
+from confing import TOKEN1 
 from bot_logic import gen_pass, flip_coin
 
 bot = telebot.TeleBot(TOKEN1)
 
-# Параметры Mini App (замените на свои значения)
-WEB_APP_URL = "https://pytelegrambotminiapp.vercel.app"  # URL вашего Mini App
+
+WEB_APP_URL = "https://pytelegrambotminiapp.vercel.app"  
 
 generate_password_t_r = False
 
@@ -25,7 +25,7 @@ def send_welcome(message):
     bot.reply_to(message, "Привет! Я твой Telegram бот. Напиши что-нибудь!")
     bot.reply_to(message, 'Советую написать /help')
 
-    # Добавляем кнопки для Mini App при старте
+    
     markup = ReplyKeyboardMarkup(resize_keyboard=True)
     markup.row(KeyboardButton("Открыть Mini App", web_app=WebAppInfo(WEB_APP_URL))) # Добавляем кнопку на клавиатуру
     bot.send_message(message.chat.id, "Нажмите кнопку ниже, чтобы открыть Mini App:", reply_markup=markup)
@@ -85,7 +85,7 @@ def send_miniapp_button(message):
     markup.row(InlineKeyboardButton("Открыть Mini App", web_app=WebAppInfo(WEB_APP_URL))) # Добавляем кнопку в inline keyboard
     bot.send_message(message.chat.id, "Нажмите кнопку ниже, чтобы открыть Mini App:", reply_markup=markup)
 
-# *** Обработчики Inline Keyboard ***
+
 
 def gen_markup():
     """Создает inline-клавиатуру с кнопками Yes и No."""
@@ -108,7 +108,7 @@ def callback_query(call):
         bot.answer_callback_query(call.id, "Неизвестный вариант ответа")
         bot.send_message(call.message.chat.id, "Произошла ошибка. Пожалуйста, попробуйте еще раз.")
 
-# *** Обработчик данных, полученных из Mini App ***
+
 
 @bot.message_handler(content_types=['web_app_data'])
 def web_app_data_handler(message):
